@@ -1,0 +1,12 @@
+{
+  "synthetic": true,
+  "title": "[가상 규정] 다른 문서(버전 혼용) 보류 시험용 (합성 데이터)",
+  "documentId": "VIRTUAL-REG-999",
+  "version": "3.0",
+  "effectiveDate": "2026-07-01",
+  "sourceUrl": "https://example.invalid/virtual-reg-999/v3.0",
+  "clauses": [
+    { "id": "제1조", "text": "이 기준은 업소용 대형기기의 표시 방법을 정한다." },
+    { "id": "제2조", "text": "경고 문구는 12포인트 이상의 글자로 표시한다." }
+  ]
+}

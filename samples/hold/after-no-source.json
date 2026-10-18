@@ -1,0 +1,12 @@
+{
+  "synthetic": true,
+  "title": "[가상 규정] 출처 누락 보류 시험용 (합성 데이터)",
+  "documentId": "VIRTUAL-REG-001",
+  "version": "1.1",
+  "effectiveDate": "2026-07-01",
+  "sourceUrl": "",
+  "clauses": [
+    { "id": "제1조", "text": "이 기준은 가정용 소형전기기기의 제품 표시 방법을 정한다." },
+    { "id": "제2조", "text": "경고 문구는 10포인트 이상의 글자로 제품 본체에 표시한다." }
+  ]
+}

@@ -1,0 +1,67 @@
+<!doctype html>
+<!-- 규정 변경영향 검토 로컬 시제품 화면(설치·서버 없이 file://로 연다) -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>규정 변경영향 검토 시제품 (로컬)</title>
+<style>
+  body { font-family: system-ui, "Malgun Gothic", sans-serif; margin: 1.5rem auto; max-width: 1100px; padding: 0 1rem; line-height: 1.5; }
+  .notice { background: #fff8e1; border: 1px solid #e0b400; padding: .6rem .8rem; }
+  section { border-top: 1px solid #ccc; margin-top: 1.2rem; padding-top: .6rem; }
+  label { display: block; margin: .3rem 0; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+  th, td { border: 1px solid #ccc; padding: .3rem .4rem; vertical-align: top; text-align: left; white-space: pre-wrap; word-break: break-all; }
+  th { background: #f0f0f0; }
+  .type-modified { background: #fff4d6; } .type-added { background: #e3f6e3; } .type-removed { background: #fde2e2; }
+  .st-hold { background: #fff0c2; } .st-reject { background: #fdd; } .st-ok { background: #e8f1ff; }
+  .status { font-size: 1.2rem; font-weight: bold; padding: .3rem .6rem; display: inline-block; border: 1px solid #999; }
+  .badge { font-size: .8rem; padding: 0 .4rem; border-radius: .3rem; } .virtual { background: #e0d4ff; } .unknown { background: #fdd; }
+  .meta { margin: .4rem 0; } .small { color: #555; font-size: .85rem; } .holds li { color: #8a4b00; }
+  textarea { width: 100%; height: 9rem; font-family: monospace; font-size: .8rem; }
+  code { word-break: break-all; }
+</style>
+</head>
+<body>
+<h1>규정 변경영향 검토 시제품</h1>
+<p class="notice">로컬 시제품입니다. 예시 파일은 <b>가상 규정·가상 문안(합성 데이터)</b>이며 실제 법규가 아닙니다.
+  이 화면은 AI를 직접 호출하지 않습니다. AI 결과는 사람이 검토할 <b>후보</b>일 뿐이며 정답이나 법적 판정이 아닙니다.</p>
+
+<p>현재 상태: <span id="status" class="status">입력 대기</span></p>
+
+<section>
+  <h2>1. 로컬 JSON 파일 선택</h2>
+  <label>변경 전 규정 JSON <input type="file" id="fileBefore" accept=".json,application/json"></label>
+  <label>변경 후 규정 JSON <input type="file" id="fileAfter" accept=".json,application/json"></label>
+  <label>제품 문안 JSON <input type="file" id="fileLabels" accept=".json,application/json"></label>
+  <p class="small">예시: samples/before.json, samples/after.json, samples/labels.json · 보류 예시: samples/hold/ · 악성 문서 예시: samples/after-malicious.json</p>
+  <p id="err" class="st-reject"></p>
+  <div id="meta"></div>
+</section>
+
+<section>
+  <h2>2. 조항 비교 (변경없음·수정·추가·삭제)</h2>
+  <div id="holds"></div>
+  <div id="diff"></div>
+</section>
+
+<section>
+  <h2>3. AI 입력 내보내기</h2>
+  <p class="small">프롬프트를 Claude 등 사용자가 이미 쓰는 AI 대화창에 붙여 넣고, 나온 JSON을 4단계에서 가져옵니다. 이 화면은 서버·API 키를 쓰지 않습니다.</p>
+  <p>입력 SHA-256: <code id="hash">—</code></p>
+  <button id="btnPrompt" disabled>AI 프롬프트 저장(.txt)</button>
+  <button id="btnInput" disabled>입력 JSON 저장(.json)</button>
+  <textarea id="prompt" readonly placeholder="입력이 준비되면 프롬프트가 여기에 표시됩니다."></textarea>
+</section>
+
+<section>
+  <h2>4. AI 분석 결과 JSON 가져오기</h2>
+  <label>결과 파일 <input type="file" id="resultFile" accept=".json,application/json" disabled></label>
+  <textarea id="pasted" placeholder="또는 AI가 낸 결과 JSON을 여기에 붙여 넣기"></textarea>
+  <button id="btnPaste" disabled>붙여 넣은 결과 확인</button>
+  <div id="findings"></div>
+</section>
+
+<script src="engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
