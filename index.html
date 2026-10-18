@@ -19,12 +19,22 @@
   .meta { margin: .4rem 0; } .small { color: #555; font-size: .85rem; } .holds li { color: #8a4b00; }
   textarea { width: 100%; height: 9rem; font-family: monospace; font-size: .8rem; }
   code { word-break: break-all; }
+  .steps { background: #eef5ff; border: 1px solid #9bb8e0; padding: .4rem .8rem; } .steps ol { margin: .3rem 0; padding-left: 1.4rem; }
 </style>
 </head>
 <body>
 <h1>규정 변경영향 검토 시제품</h1>
 <p class="notice">로컬 시제품입니다. 예시 파일은 <b>가상 규정·가상 문안(합성 데이터)</b>이며 실제 법규가 아닙니다.
   이 화면은 AI를 직접 호출하지 않습니다. AI 결과는 사람이 검토할 <b>후보</b>일 뿐이며 정답이나 법적 판정이 아닙니다.</p>
+
+<div class="steps">
+  <b>사용 순서</b>
+  <ol>
+    <li>예시 파일 4개를 내려받습니다: <a href="samples/before.json" download>before.json</a> · <a href="samples/after.json" download>after.json</a> · <a href="samples/labels.json" download>labels.json</a> · <a href="evidence/claude-inference.json" download>claude-inference.json</a></li>
+    <li>1단계에서 before·after·labels를 차례로 고르면 조항 비교와 AI 입력(프롬프트·SHA-256)이 만들어집니다.</li>
+    <li>4단계 ‘결과 파일’에서 claude-inference.json(이 예시로 실제 받은 Claude 결과)을 고르면 해시·인용 검증 결과가 표시됩니다.</li>
+  </ol>
+</div>
 
 <p>현재 상태: <span id="status" class="status">입력 대기</span></p>
 
@@ -33,7 +43,7 @@
   <label>변경 전 규정 JSON <input type="file" id="fileBefore" accept=".json,application/json"></label>
   <label>변경 후 규정 JSON <input type="file" id="fileAfter" accept=".json,application/json"></label>
   <label>제품 문안 JSON <input type="file" id="fileLabels" accept=".json,application/json"></label>
-  <p class="small">예시: samples/before.json, samples/after.json, samples/labels.json · 보류 예시: samples/hold/ · 악성 문서 예시: samples/after-malicious.json</p>
+  <p class="small">예시 파일은 위 ‘사용 순서’ 1번에서 내려받습니다. 보류 예시: <a href="samples/hold/after-duplicate-id.json" download>조항 ID 중복</a> · <a href="samples/hold/after-other-document.json" download>다른 문서</a> · <a href="samples/hold/after-no-source.json" download>출처 누락</a> · <a href="samples/hold/after-unknown-date.json" download>시행일 미상</a> · 악성 문서 예시: <a href="samples/after-malicious.json" download>after-malicious.json</a> (변경 후 칸에 대신 넣습니다)</p>
   <p id="err" class="st-reject"></p>
   <div id="meta"></div>
 </section>
